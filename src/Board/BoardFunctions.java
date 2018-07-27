@@ -29,7 +29,7 @@ public class BoardFunctions {
 		return num;
 	}
 	
-	public static int[][] fillWithNumbers(int[][] arr, int n) {
+	public static void fillWithNumbers(int[][] arr, int n) {
 		// TODO Auto-generated method stub
 		//int[][] output = new int[n][n];
 		for(int i=0;i<n;i++) {
@@ -39,7 +39,7 @@ public class BoardFunctions {
 				}
 			}
 		}
-		return arr;
+		//return arr;
 	}
 	
 	private static void countNeighbouringMines(int[][] arr,int row,int col) {
@@ -47,8 +47,8 @@ public class BoardFunctions {
 		//int ans=0;
 		for(int i=-1;i<2;i++) {
 			for(int j=-1;j<2;j++) {
-				if((row+i>=0 && row+i<=7) && (col+i>=0 && col+i<=7)) {
-					if(arr[row+i][col+i]==-1) {
+				if((row+i>=0 && row+i<=7) && (col+j>=0 && col+j<=7)) {
+					if(arr[row+i][col+j]==-1) {
 						++arr[row][col];
 					}
 				}
@@ -59,16 +59,19 @@ public class BoardFunctions {
 	}
 
 	public static void main(String[] args) {
+		
 		int[][] arr = fillArray(8,10);
-		int[][] out = fillWithNumbers(arr,8);
+		fillWithNumbers(arr,8);
 		for(int i=0;i<8;i++) {
 			for(int j=0;j<8;j++) {
-				System.out.print(arr[i][j]+" ");
+				if(arr[i][j]==-1)
+					System.out.print(". ");
+				else
+					System.out.print(arr[i][j]+" ");
 			}
 			System.out.println();
 		}
 		System.out.println();
+		new BoardUI();
 	}
-
-	
 }
