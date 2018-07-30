@@ -4,19 +4,11 @@ import java.util.Random;
 
 public class BoardFunctions {
 	
-	public static int[][] fillArray(int rows, int minesNumber) {
+	public static int[][] fillArray(int rows, int mineCount) {
 		int[][] mines=new int[rows][rows];
-		
-		for(int i=0;i<minesNumber;i++) {
-			int randomNumber=generateRandomFunction(rows*rows-1);
-			System.out.print(randomNumber+" ");
-			if(mines[randomNumber/rows][randomNumber%rows]==-1) {
-				--i;
-				System.out.println("same");
-				continue;
-			}
-			System.out.println("ok");
-			mines[randomNumber/rows][randomNumber%rows]=-1;
+		int[] mine_pos = fisherYates(rows*rows, mineCount);
+		for(int i=0; i<mineCount; i++){
+			mines[mine_pos[i]/rows][mine_pos[i]%rows]==-1
 		}
 		return mines;
 	}
@@ -27,6 +19,27 @@ public class BoardFunctions {
 		Random randomNum = new Random();
 		int num = randomNum.nextInt(max);
 		return num;
+	}
+
+	public static int[] fisherYates(int max, int number){
+		int[] rands = new int [max];
+		int[] out = new int [number];
+		for(int i=0; i<max; i++){
+			rands[i] = i;
+		}
+		int temp_max=max-1;
+		for(int i=0; i<number; i++){
+			Random randomNum = new Random();
+			int num = randomNum.nextInt(temp_max);
+      		{
+      			int swap_temp = rands[temp_max];
+				rands[temp_max] = rands[num];
+      			rands[num]=swap_temp;
+      		}
+			out[i]=rands[temp_max];
+			temp_max-=1;
+		}
+		return out;
 	}
 	
 	public static void fillWithNumbers(int[][] arr, int n) {
